@@ -5,7 +5,7 @@ const server = http.createServer((req, res) => {
   const url = req.url;
   if (url === "/") {
     res.setHeader("content-type", "text/html");
-    fs.readFile("dataFile.txt", (err, data) => {
+    fs.readFile("message.txt", (err, data) => {
       res.end(`
             <p>${data}</p>
             <form action="/writeFile" method="post">
@@ -25,7 +25,7 @@ const server = http.createServer((req, res) => {
         const formData = Buffer.concat(data).toString();
         const formValues = formData.split("=")[1];
 
-        fs.appendFile("dataFile.txt", `${formValues}\n`, (err) => {
+        fs.appendFile("message.txt", `${formValues}\n`, (err) => {
           res.statusCode = 302;
           res.setHeader("Location", "/");
           res.end();
